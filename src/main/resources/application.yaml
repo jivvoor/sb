@@ -1,0 +1,23 @@
+# application.properties -> server.port=8080
+server:
+  port: 8080
+
+spring:
+  application:
+    name: 251204_sb
+  profiles:
+    active: dev
+  # dev, prod 공통 설정
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+
+# Value
+app:
+  msg: '나는 최고의 자바 개발자!'
+  skill:
+    - java
+    - javascript
+    - sql
+  year: 2025
