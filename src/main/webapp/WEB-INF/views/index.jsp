@@ -13,7 +13,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #3f6212; /* Darker, organic background color */
+            background-color: #b2c5aa; /* Darker, organic background color */
             display: flex;
             justify-content: center;
             align-items: center;
