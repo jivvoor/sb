@@ -1,11 +1,10 @@
-<%-- JSP 페이지 지시어 추가: 이 파일의 인코딩을 명시적으로 UTF-8로 지정합니다. --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>노트 스타일 메모 앱</title>
+    <title>메모</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -13,7 +12,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #b2c5aa; /* Darker, organic background color */
+            background-color: #b4e1bb; /* Darker, organic background color */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -29,7 +28,8 @@
             background-size: 100% 25px;
             line-height: 25px; /* 텍스트 줄 간격을 줄 간격에 맞춥니다. */
             padding-top: 5px; /* 상단 여백 조정 */
-            min-height: 128px; /* 최소 높이 유지 */
+            /* min-height를 사용하여 내용에 따라 높이가 늘어나도록 설정 */
+            min-height: 128px;
         }
     </style>
 </head>
@@ -40,7 +40,7 @@
 
     <!-- Header: 클립보드처럼 상단에 제목 배치 -->
     <h1 class="text-3xl font-bold text-gray-800 text-center pb-4 border-b border-gray-300 border-dashed">
-        📌 노트에 메모하기
+        📌 메모
     </h1>
 
     <!-- Messages Section -->
@@ -51,11 +51,31 @@
             <%= request.getAttribute("msg") %>
         </p>
 
-        <!-- 메모 목록 출력 영역: 줄무늬 노트 효과 적용 -->
-        <div class="lined-paper p-4 rounded-lg shadow-inner text-left text-base text-gray-800 overflow-y-auto h-32">
+        <div class="lined-paper p-4 rounded-lg shadow-inner text-left text-base text-gray-800 overflow-y-auto min-h-32">
             <p class="font-semibold text-gray-700 mb-1 leading-normal">📝 기록된 내용:</p>
-            <!-- JSP: 메모 목록을 표시 -->
-            <pre class="whitespace-pre-wrap leading-[25px]"><%= request.getAttribute("memos") %></pre>
+
+            <%
+                // request에서 "memos" 속성 값을 가져와 List<String>으로 캐스팅합니다.
+                java.util.List memos = (java.util.List) request.getAttribute("memos");
+
+                if (memos != null && !memos.isEmpty()) {
+                    for (Object memoObj : memos) {
+                        String content = memoObj.toString(); // List<String> 가정 시 메모 내용 문자열
+            %>
+            <p class="text-sm text-gray-800 leading-[25px] overflow-hidden whitespace-nowrap overflow-ellipsis">
+                • <%= content %>
+            </p>
+            <%
+                }
+            } else {
+            %>
+            <p class="text-sm text-gray-500 italic leading-[25px]">
+                아직 기록된 메모가 없습니다.
+            </p>
+            <%
+                }
+            %>
+
         </div>
     </div>
 
