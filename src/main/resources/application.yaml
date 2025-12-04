@@ -15,9 +15,9 @@ spring:
 
 # Value
 app:
-  msg: '나는 최고의 자바 개발자!'
+  msg: '나는 최고의 코틀린 개발자!'
   skill:
-    - java
+    - jakarta
     - javascript
     - sql
-  year: 2025
+  year: 2026
